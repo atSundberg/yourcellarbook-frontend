@@ -1,0 +1,87 @@
+// Custom.scss
+// Option B: Include parts of Bootstrap
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../../node_modules/bootstrap/scss/functions";
+// @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@600&family=Roboto:wght@100&display=swap");
+
+$primaryRed: #783937;
+$mustard: #e3b448;
+
+$info: $primaryRed;
+$warning: $mustard;
+
+body {
+    font-family: "Roboto";
+}
+
+.font-raleway {
+    font-family: "Raleway", sans-serif;
+    font-size: 64px;
+    color: $primaryRed;
+}
+
+.shape-divider-bottom {
+    position: absolute;
+    top: 30 rem;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.shape-divider-bottom svg {
+    position: relative;
+    display: block;
+    width: calc(127% + 1.3px);
+    height: 304px;
+}
+
+.shape-divider-bottom .shape-fill {
+    fill: #e3b448;
+}
+
+// body {
+//     background-image: url("../assets/images/ToonCamera.jpg");
+//     background-size: cover; /* Adjusts the image size to cover the entire container */
+//     background-repeat: no-repeat; /* Prevents repeating the image */
+//     background-attachment: fixed; /* Makes the image fixed to the viewport */
+//     // background-position: center;
+//     background-position-y: 40%;
+//     background-color: rgba(255, 255, 255, 0.2) !important;
+// }
+
+// 2. Include any default variable overrides here
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/variables-dark";
+
+// 4. Include any default map overrides here
+
+// 5. Include remainder of required parts
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/root";
+
+// 6. Optionally include any other parts as needed
+@import "../../node_modules/bootstrap/scss/utilities";
+@import "../../node_modules/bootstrap/scss/reboot";
+@import "../../node_modules/bootstrap/scss/type";
+@import "../../node_modules/bootstrap/scss/images";
+@import "../../node_modules/bootstrap/scss/containers";
+@import "../../node_modules/bootstrap/scss/grid";
+@import "../../node_modules/bootstrap/scss/helpers";
+
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "../../node_modules/bootstrap/scss/utilities/api";
+
+// 8. Add additional custom code here
+
+// Import the rest of Bootstrap's SASS
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+$navbar-color: $mustard;
+
+// Your custom styles can go here

@@ -2,6 +2,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Styling
+
+### `Bulma`
+In `package.json` add the following line:
+
+`"bulma": "^0.9.4"`
+
+Then import bulma in `index.js`.
+
 ## Available Scripts
 
 In the project directory, you can run:
