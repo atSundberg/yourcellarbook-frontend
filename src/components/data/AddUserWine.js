@@ -1,8 +1,18 @@
 // PostRequest.js (Separate component for post request)
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
-function AddUserWine({ wineData, user }) {
+// function AddUserWine({ wineData, user, restoreWineData, handleNavItemChange }) {
+function AddUserWine({ wineData, user, restoreWineData }) {
     console.log("AddUserWine.wineData: ", wineData);
+    const [successResponse, setSuccessResponse] = useState(null);
+    const [errorResponse, setErrorResponse] = useState(null);
+
+    // const handleViewWines = () => {
+    //     handleNavItemChange("wineList");
+    // };
+
     const handlePostRequest = async () => {
         try {
             const wine = {
@@ -13,7 +23,7 @@ function AddUserWine({ wineData, user }) {
                 vintage: wineData.vintage,
                 category: wineData.category,
             };
-            console.log("Json.stringify: ", JSON.stringify(wine));
+
             // Implement your post request logic here using the wineData
             const wineResponse = await fetch("http://localhost:8080/wines", {
                 method: "POST",
@@ -27,16 +37,15 @@ function AddUserWine({ wineData, user }) {
                 const wineResult = await wineResponse.json();
                 console.log("wineResult: ", wineResult);
                 const userWine = {
-                    wine_id: wineResult.wineId,
-                    user_id: user.userId,
+                    user_wine_id: {
+                        userId: user.userId,
+                        wineId: wineResult.result.wine_id,
+                    },
                     quantity: wineData.quantity,
                     information: wineData.information,
-                    storing_location: wineData.storing_location,
+                    storing_location: wineData.storingLocation,
+                    price: wineData.price,
                 };
-                console.log(
-                    "Json.stringify userWine: ",
-                    JSON.stringify(userWine)
-                );
 
                 const userWineResponse = await fetch(
                     "http://localhost:8080/user/wine",
@@ -49,9 +58,14 @@ function AddUserWine({ wineData, user }) {
                     }
                 )
                     .then((res) => res.json())
-                    .then((result) => console.log(result));
+                    .then((result) => {
+                        console.log(result);
+                        restoreWineData();
+                        setSuccessResponse(result.message);
+                    });
                 // Handle success
             } else {
+                setErrorResponse("Could not add wine");
                 // Handle error
             }
         } catch (error) {
@@ -68,6 +82,18 @@ function AddUserWine({ wineData, user }) {
                 onClick={handlePostRequest}>
                 Add Wine
             </button>
+            {successResponse && (
+                <div className="alert alert-success mt-3" role="alert">
+                    <FontAwesomeIcon className="me-2" icon={faCheckCircle} />{" "}
+                    {successResponse}
+                    <button
+                        className="btn btn-outline-success ms-5"
+                        // onClick={handleViewWines()}
+                    >
+                        View Wines
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

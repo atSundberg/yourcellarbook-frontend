@@ -9,6 +9,7 @@ import AddUserWine from "../data/AddUserWine";
 import ProducerPicker from "../pickers/ProducerPicker";
 import ProducerFetcher from "../data/ProducerFetcher";
 
+// function AddWineForm({ setData, user, handleNavItemChange }) {
 function AddWineForm({ setData, user }) {
     const producerRef = useRef(null);
     const regionRef = useRef(null);
@@ -34,10 +35,33 @@ function AddWineForm({ setData, user }) {
         quantity: 1,
         category: "RED",
         information: "",
+        price: 0,
         storingLocation: "",
     });
 
     useEffect(() => {}, []);
+
+    const restoreWineData = () => {
+        setWineData({
+            name: "",
+            producer: {
+                id: "",
+                name: "",
+            },
+            region: {
+                id: "",
+                name: "",
+                country: "",
+            },
+            vintage: 2020,
+            grapes: [],
+            quantity: 1,
+            category: "RED",
+            information: "",
+            price: 0,
+            storingLocation: "",
+        });
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -101,8 +125,6 @@ function AddWineForm({ setData, user }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission here, e.g., send data to the server
-        console.log(wineData);
     };
 
     return (
@@ -134,19 +156,6 @@ function AddWineForm({ setData, user }) {
                         onSelect={handleProducerSelection}
                         nextRef={regionRef}
                     />
-
-                    {/* <label htmlFor="producer" className="form-label">
-                        Producer
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="producer"
-                        name="producer"
-                        value={wineData.producer.name}
-                        onChange={handleChange}
-                        required
-                    /> */}
                 </div>
 
                 <div className="mb-3">
@@ -281,7 +290,26 @@ function AddWineForm({ setData, user }) {
                         onChange={handleChange}
                     />
                 </div>
-                <AddUserWine wineData={wineData} user={user} />
+                <div className="mb-3">
+                    <label htmlFor="price" className="form-label">
+                        Price
+                    </label>
+                    <input
+                        type="number"
+                        className="form-control"
+                        id="price"
+                        name="price"
+                        value={wineData.price}
+                        onChange={handleChange}
+                        min="0"
+                    />
+                </div>
+                <AddUserWine
+                    wineData={wineData}
+                    user={user}
+                    restoreWineData={restoreWineData}
+                    // handleNavItemChange={handleNavItemChange}
+                />
             </form>
         </div>
     );
