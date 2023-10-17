@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 // function AddUserWine({ wineData, user, restoreWineData, handleNavItemChange }) {
-function AddUserWine({ wineData, user, restoreWineData }) {
+function AddUserWine({ wineData, user, restoreWineData, data, setData }) {
     console.log("AddUserWine.wineData: ", wineData);
     const [successResponse, setSuccessResponse] = useState(null);
     const [errorResponse, setErrorResponse] = useState(null);
@@ -61,6 +61,7 @@ function AddUserWine({ wineData, user, restoreWineData }) {
                     .then((result) => {
                         console.log(result);
                         restoreWineData();
+                        setData([...data, result.result]);
                         setSuccessResponse(result.message);
                     });
                 // Handle success
@@ -86,12 +87,12 @@ function AddUserWine({ wineData, user, restoreWineData }) {
                 <div className="alert alert-success mt-3" role="alert">
                     <FontAwesomeIcon className="me-2" icon={faCheckCircle} />{" "}
                     {successResponse}
-                    <button
+                    {/* <button
                         className="btn btn-outline-success ms-5"
                         // onClick={handleViewWines()}
                     >
                         View Wines
-                    </button>
+                    </button> */}
                 </div>
             )}
         </div>

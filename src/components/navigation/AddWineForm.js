@@ -10,7 +10,7 @@ import ProducerPicker from "../pickers/ProducerPicker";
 import ProducerFetcher from "../data/ProducerFetcher";
 
 // function AddWineForm({ setData, user, handleNavItemChange }) {
-function AddWineForm({ setData, user }) {
+function AddWineForm({ data, setData, user }) {
     const producerRef = useRef(null);
     const regionRef = useRef(null);
     const grapeRef = useRef(null);
@@ -308,6 +308,8 @@ function AddWineForm({ setData, user }) {
                     wineData={wineData}
                     user={user}
                     restoreWineData={restoreWineData}
+                    data={data}
+                    setData={setData}
                     // handleNavItemChange={handleNavItemChange}
                 />
             </form>

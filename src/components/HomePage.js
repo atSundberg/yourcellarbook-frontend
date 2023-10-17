@@ -77,6 +77,7 @@ function HomePage({ data, setData, user }) {
                     aria-labelledby="nav-add-wine-tab"
                     tabIndex="2">
                     <AddWineForm
+                        data={data}
                         setData={setData}
                         user={user}
                         // handleNavItemChange={handleNavItemClick}
