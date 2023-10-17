@@ -76,7 +76,12 @@ function HomePage({ data, setData, user }) {
                     role="tabpanel"
                     aria-labelledby="nav-add-wine-tab"
                     tabIndex="2">
-                    <AddWineForm setData={setData} user={user} />
+                    <AddWineForm
+                        data={data}
+                        setData={setData}
+                        user={user}
+                        // handleNavItemChange={handleNavItemClick}
+                    />
                 </div>
             </div>
         </div>
