@@ -1,49 +1,56 @@
 import React, { useEffect, useState } from "react";
-import { login } from "../../api/login";
-import { getUser } from "../../api/getUser";
 import config from "../../config/config";
+import { Modal } from "bootstrap/dist/js/bootstrap.esm";
 
-function LoginModal({ onLogin, setShowModal, handleSwitchModal }) {
-    const [errorMessage, setErrorMessage] = useState("");
+function LoginModal({ onLogin }) {
+    const [shouldDismiss, setShouldDismiss] = useState(false);
     const [userInfo, setUserInfo] = useState({
         username: "",
         password: "",
     });
 
     useEffect(() => {
-        console.log(errorMessage);
-    }, [errorMessage]);
+        console.log(userInfo);
+    }, [userInfo]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
-        // console.log("Navbar.handleLogin: ", userInfo);
+        console.log("Navbar.handleLogin: ", userInfo);
         try {
-            const result = await login(userInfo);
+            const response = await fetch(config.production.apiUrl + "/token", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userInfo),
+            });
 
-            if (result) {
-                const user = await getUser(userInfo.username, result.token);
+            if (response.ok) {
+                // Successful login logic
+                const data = await response.json();
+                // Send data back to a callback function
+                setShouldDismiss(true);
+                onLogin(data.result);
 
-                if (user) {
-                    setShowModal(false);
-                    onLogin(result.token, user);
-                    setUserInfo({ username: "", password: "" });
-                }
+                setUserInfo({ username: "", password: "" });
             } else {
-                console.error("Something went wrong...", result);
+                // Handle authentication errors
+                console.error("Something went wrong...", response);
             }
         } catch (error) {
-            setErrorMessage("Login unsuccessful, please try again");
-
-            console.error("Login failed:", error);
+            // Handle network errors
+            console.error("Network error: ", error);
         }
     };
 
-    const handleChange = (e) => {
-        if (errorMessage) {
-            setErrorMessage("");
-        }
+    // const handleLogin = (e) => {
+    //     e.preventDefault();
+    //     console.log("inside.HandleLogin");
+    //     onLogin(userInfo);
+    //     setUserInfo({ username: "", password: "" });
+    // };
 
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setUserInfo({
             ...userInfo,
@@ -53,13 +60,19 @@ function LoginModal({ onLogin, setShowModal, handleSwitchModal }) {
 
     return (
         <div>
+            <button
+                type="button"
+                className="btn btn-info"
+                data-bs-toggle="modal"
+                data-bs-target="#loginModal">
+                Log in
+            </button>
             <div
-                className="modal fade show mystyle"
+                className="modal fade"
                 id="loginModal"
                 tabIndex="-1"
                 aria-labelledby="loginModalLabel"
-                aria-hidden="true"
-                style={{ display: "block" }}>
+                aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -69,7 +82,8 @@ function LoginModal({ onLogin, setShowModal, handleSwitchModal }) {
                             <button
                                 type="button"
                                 className="btn-close"
-                                onClick={() => setShowModal(false)}
+                                // onClick={toggleLoginModal}
+                                data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
                         <form onSubmit={handleLogin}>
@@ -109,16 +123,6 @@ function LoginModal({ onLogin, setShowModal, handleSwitchModal }) {
                                         required
                                     />
                                 </div>
-                                {errorMessage && (
-                                    <div className="mb-0">
-                                        <div className="col-2"></div>
-                                        <div className="col-10 mb-0">
-                                            <p className="text-danger">
-                                                {errorMessage}
-                                            </p>
-                                        </div>
-                                    </div>
-                                )}
                             </div>
 
                             <div className="modal-footer">
@@ -127,7 +131,16 @@ function LoginModal({ onLogin, setShowModal, handleSwitchModal }) {
                                         <div className="col-9">
                                             <button
                                                 type="submit"
-                                                className="btn btn-warning w-100">
+                                                className="btn btn-warning w-100"
+                                                data-bs-dissmiss={
+                                                    shouldDismiss ? "modal" : ""
+                                                }
+                                                {...(shouldDismiss
+                                                    ? {
+                                                          "data-bs-dismiss":
+                                                              "modal",
+                                                      }
+                                                    : {})}>
                                                 Log in
                                             </button>
                                         </div>
@@ -135,24 +148,19 @@ function LoginModal({ onLogin, setShowModal, handleSwitchModal }) {
                                             <button
                                                 type="button"
                                                 className="btn btn-secondary w-100"
-                                                onClick={() =>
-                                                    setShowModal(false)
-                                                }>
+                                                data-bs-dismiss="modal"
+                                                // onClick={toggleLoginModal}
+                                            >
                                                 Close
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <p className="text-center">
-                                Don't have an account?{" "}
-                                <button
-                                    type="button"
-                                    className="btn btn-sm btn-outline-info mb-1"
-                                    onClick={() => handleSwitchModal()}>
-                                    Sign Up
-                                </button>
-                            </p>
+
+                            {/* <p className="text-center">
+                        Don't have an account? <button type="button" className="btn btn-link mb-1" onClick={openSignUpModal}>Sign Up</button>
+                    </p> */}
                         </form>
                     </div>
                 </div>

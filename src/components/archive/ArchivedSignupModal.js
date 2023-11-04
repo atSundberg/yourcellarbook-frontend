@@ -19,10 +19,38 @@ function SignUpModal({ onSignup, setShowModal, handleSwitchModal }) {
         return false;
     };
 
+    useEffect(() => {
+        console.log(userDetails);
+    }, [userDetails]);
+
+    // const handleLogin = async (e) => {
+    //     e.preventDefault();
+    //     console.log("Navbar.handleLogin: ", userInfo);
+    //     try {
+    //         const result = await login(userInfo);
+
+    //         if (result) {
+    //             const user = await getUser(userInfo.username, result.token);
+
+    //             if (user) {
+    //                 setShowModal(false);
+    //                 onLogin(result, user);
+    //                 setUserInfo({ username: "", password: "" });
+    //             }
+    //         }
+    //     } catch (error) {
+    //         console.error("Login failed:", error);
+    //     }
+    // };
+
     const handleSignup = async (e) => {
         e.preventDefault();
-        // console.log("SignupModal.handleSignup: ", userDetails);
+        console.log("SignupModal.handleSignup: ", userDetails);
 
+        console.log(
+            "isPasswordEqualityVerified: ",
+            isPasswordEqualityVerified()
+        );
         if (!isPasswordEqualityVerified()) {
             return setErrorMessage("The passwords does not match");
         }
@@ -72,7 +100,9 @@ function SignUpModal({ onSignup, setShowModal, handleSwitchModal }) {
         if (errorMessage) {
             setErrorMessage("");
         }
-
+        console.log("handleChange: ", e.target);
+        console.log("handleChange.name: ", e.target);
+        console.log("handleChange.value: ", e.target);
         const { name, value } = e.target;
         setUserDetails({
             ...userDetails,
@@ -104,54 +134,65 @@ function SignUpModal({ onSignup, setShowModal, handleSwitchModal }) {
                         <form onSubmit={handleSignup}>
                             <div className="modal-body">
                                 {/* Add your sign-up form or content here */}
-                                <div className="mb-3">
-                                    <label
-                                        htmlFor="emailSignup"
-                                        className="col-form-label">
-                                        Email
-                                    </label>
-
-                                    <input
-                                        type="email"
-                                        className="form-control"
-                                        id="emailSignup"
-                                        name="username"
-                                        value={userDetails.username}
-                                        placeholder="Enter your email"
-                                        onChange={handleChange}
-                                        required
-                                    />
-
-                                    <div className="mb-3">
-                                        <label
-                                            htmlFor="passwordSignup"
-                                            className="col-form-label">
-                                            Password
-                                        </label>
-
-                                        <input
-                                            type="password"
-                                            className="form-control"
-                                            id="passwordSignup"
-                                            name="password"
-                                            value={userDetails.password}
-                                            placeholder="Enter your password"
-                                            onChange={handleChange}
-                                            required
-                                        />
+                                <div className="container">
+                                    <div className="row">
+                                        <div className="col-2">
+                                            <label
+                                                htmlFor="emailSignup"
+                                                className="col-form-label">
+                                                Email
+                                            </label>
+                                        </div>
+                                        <div className="col-10 mb-3">
+                                            <input
+                                                type="email"
+                                                className="form-control"
+                                                id="emailSignup"
+                                                name="username"
+                                                value={userDetails.username}
+                                                placeholder="Enter your email"
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                        </div>
                                     </div>
-
-                                    <div className="mb-3">
-                                        <input
-                                            type="password"
-                                            className="form-control"
-                                            id="passwordConfirm"
-                                            name="repeatedPassword"
-                                            value={userDetails.repeatedPassword}
-                                            placeholder="Confirm password"
-                                            onChange={handleChange}
-                                            required
-                                        />
+                                    <div className="row">
+                                        <div className="col-2">
+                                            <label
+                                                htmlFor="passwordSignup"
+                                                className="col-form-label">
+                                                Password
+                                            </label>
+                                        </div>
+                                        <div className="col-10 mb-3">
+                                            <input
+                                                type="password"
+                                                className="form-control"
+                                                id="passwordSignup"
+                                                name="password"
+                                                value={userDetails.password}
+                                                placeholder="Enter your password"
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-2"></div>
+                                        <div className="col-10 mb-3">
+                                            <input
+                                                type="password"
+                                                className="form-control"
+                                                id="passwordConfirm"
+                                                name="repeatedPassword"
+                                                value={
+                                                    userDetails.repeatedPassword
+                                                }
+                                                placeholder="Confirm password"
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                        </div>
                                     </div>
                                     {errorMessage && (
                                         <div className="row mb-0">

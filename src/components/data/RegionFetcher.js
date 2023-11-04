@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
+import config from "../../config/config";
+import { useAuth } from "../../config/AuthContext";
 
 function RegionFetcher({ setRegions }) {
+    const { token } = useAuth();
     const processRegionData = (data) => {
         const regions = [];
         data.map((region) => {
@@ -10,7 +13,13 @@ function RegionFetcher({ setRegions }) {
     };
 
     useEffect(() => {
-        fetch("http://localhost:8080/regions")
+        fetch(config.production.apiUrl + "/regions", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        })
             .then((response) => response.json())
             .then((data) => {
                 // console.log("Fetched data: ", data);

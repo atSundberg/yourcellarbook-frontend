@@ -2,12 +2,16 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../../config/AuthContext";
+import config from "../../config/config";
+import { useLanguage } from "../../config/LanguageProvider";
 
-// function AddUserWine({ wineData, user, restoreWineData, handleNavItemChange }) {
 function AddUserWine({ wineData, user, restoreWineData, data, setData }) {
-    console.log("AddUserWine.wineData: ", wineData);
+    const { translations } = useLanguage();
+    // console.log("AddUserWine.wineData: ", wineData);
     const [successResponse, setSuccessResponse] = useState(null);
     const [errorResponse, setErrorResponse] = useState(null);
+    const { token } = useAuth();
 
     // const handleViewWines = () => {
     //     handleNavItemChange("wineList");
@@ -25,20 +29,24 @@ function AddUserWine({ wineData, user, restoreWineData, data, setData }) {
             };
 
             // Implement your post request logic here using the wineData
-            const wineResponse = await fetch("http://localhost:8080/wines", {
-                method: "POST",
-                body: JSON.stringify(wine),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            const wineResponse = await fetch(
+                config.production.apiUrl + "/wines",
+                {
+                    method: "POST",
+                    body: JSON.stringify(wine),
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
 
             if (wineResponse.ok) {
                 const wineResult = await wineResponse.json();
-                console.log("wineResult: ", wineResult);
+                // console.log("wineResult: ", wineResult);
                 const userWine = {
                     user_wine_id: {
-                        userId: user.userId,
+                        userId: user.user_id,
                         wineId: wineResult.result.wine_id,
                     },
                     quantity: wineData.quantity,
@@ -47,19 +55,26 @@ function AddUserWine({ wineData, user, restoreWineData, data, setData }) {
                     price: wineData.price,
                 };
 
+                // console.log("UserWine to POST: ", userWine);
+                // console.log(
+                //     "UserWine to POST (json): ",
+                //     JSON.stringify(userWine)
+                // );
+
                 const userWineResponse = await fetch(
-                    "http://localhost:8080/user/wine",
+                    config.production.apiUrl + "/user/wine",
                     {
                         method: "POST",
                         body: JSON.stringify(userWine),
                         headers: {
+                            Authorization: `Bearer ${token}`,
                             "Content-Type": "application/json",
                         },
                     }
                 )
                     .then((res) => res.json())
                     .then((result) => {
-                        console.log(result);
+                        // console.log(result);
                         restoreWineData();
                         setData([...data, result.result]);
                         setSuccessResponse(result.message);
@@ -70,7 +85,7 @@ function AddUserWine({ wineData, user, restoreWineData, data, setData }) {
                 // Handle error
             }
         } catch (error) {
-            console.log("Error adding wine: ", error);
+            // console.log("Error adding wine: ", error);
             // Handle any exceptions
         }
     };
@@ -81,7 +96,7 @@ function AddUserWine({ wineData, user, restoreWineData, data, setData }) {
                 type="submit"
                 className="btn btn-info p-2"
                 onClick={handlePostRequest}>
-                Add Wine
+                {translations && translations["wine.addition.add"]}
             </button>
             {successResponse && (
                 <div className="alert alert-success mt-3" role="alert">

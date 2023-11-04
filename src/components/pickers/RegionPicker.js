@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
+import AddRegionModal from "../modals/AddRegionModal";
+import { useLanguage } from "../../config/LanguageProvider";
 
 function RegionPicker({ regions, onSelect, regionRef, nextRef }) {
+    const { translations } = useLanguage();
+    const [showAddRegionModal, setShowAddRegionModal] = useState(false);
     const [inputValue, setInputValue] = useState("");
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [filteredRegions, setFilteredRegions] = useState([]);
@@ -48,7 +52,7 @@ function RegionPicker({ regions, onSelect, regionRef, nextRef }) {
     };
 
     const handleItemClick = (region) => {
-        console.log("RegionPicker.handleItemClick.region", region);
+        // console.log("RegionPicker.handleItemClick.region", region);
         setInputValue(region.name);
         setIsDropdownOpen(false);
         onSelect(region); // Pass the selected grape to the parent component
@@ -85,22 +89,31 @@ function RegionPicker({ regions, onSelect, regionRef, nextRef }) {
     return (
         <div className="mb-3">
             <label htmlFor="region" className="form-label">
-                Region
+                {translations && translations["wine.addition.region"]}
             </label>
-
-            <input
-                className="form-control"
-                id="region"
-                name="region"
-                value={inputValue}
-                onChange={handleInputChange}
-                onFocus={handleInputFocus}
-                onBlur={handleInputBlur}
-                onKeyDown={handleKeyDown}
-                autoComplete="off"
-                ref={regionRef}
-            />
-            {isDropdownOpen && (
+            <div className="input-group">
+                <input
+                    className="form-control"
+                    id="region"
+                    name="region"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}
+                    onKeyDown={handleKeyDown}
+                    autoComplete="off"
+                    ref={regionRef}
+                />
+                {filteredRegions.length === 0 && inputValue.length > 0 && (
+                    <button
+                        className="btn btn-info"
+                        onClick={() => setShowAddRegionModal(true)}>
+                        {translations &&
+                            translations["modal.add.region.button"]}
+                    </button>
+                )}
+            </div>
+            {isDropdownOpen && filteredRegions.length > 0 && (
                 <div className="card">
                     <div className="card-body region-dropdown">
                         {filteredRegions.map((region, index) => (
@@ -118,6 +131,15 @@ function RegionPicker({ regions, onSelect, regionRef, nextRef }) {
                         ))}
                     </div>
                 </div>
+            )}
+            {showAddRegionModal && (
+                <>
+                    <div className="modal-backdrop fade show"></div>
+                    <AddRegionModal
+                        setShowModal={setShowAddRegionModal}
+                        handleRegionAddition={handleItemClick}
+                    />
+                </>
             )}
         </div>
     );
