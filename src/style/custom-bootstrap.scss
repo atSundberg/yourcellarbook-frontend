@@ -5,21 +5,161 @@
 @import "../../node_modules/bootstrap/scss/functions";
 // @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@600&family=Roboto:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;1,100&display=swap");
 
-$primaryRed: #783937;
+$brick: #783937;
 $mustard: #e3b448;
+$pale: #f9e4d4;
+$forest: #112500;
 
-$info: $primaryRed;
+$info: $forest;
 $warning: $mustard;
+$test: #123123;
+$primary: $pale;
+$secondary: $brick;
+
+// html {
+//     padding: env(safe-area-inset);
+// }
 
 body {
     font-family: "Roboto";
+    background-color: #ffddb8 !important;
 }
+
+// .table {
+//     // font-family: "Cutive Mono", monospace;
+//     // font-weight: 400;
+// }
+
+$nav-tabs-border-width: 0;
+
+.form-check-input:checked {
+    background-color: $forest !important;
+}
+
+.nav-container {
+    margin-top: 0%;
+    margin-bottom: 2%;
+    margin-right: 5%;
+    margin-left: 5%;
+    padding-bottom: 2%;
+    background-color: $primary;
+    min-height: 45em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 5%;
+    border-bottom-right-radius: 5%;
+    border-top-right-radius: 5%;
+    border-top-left-radius: 5%;
+}
+
+.public-container {
+    padding: 5% 10%;
+    font-family: "Roboto Mono", monospace;
+    font-weight: 200;
+}
+
+.font-mono {
+    font-family: "Roboto Mono", monospace;
+    font-weight: 400;
+}
+
+.flag-button {
+    background-image: url("../assets/svgs/us.svg");
+
+    min-height: 1.5rem;
+    min-width: 2.5rem;
+    background-repeat: no-repeat;
+}
+
+.display-9 {
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.account-container {
+    padding: 5% 15%;
+    font-weight: 400;
+}
+
+$card-border-color: none;
+
+.form-container {
+    padding: 5% 3%;
+    margin: 0% 10%;
+    border-collapse: separate;
+    border-spacing: 0; /* Add spacing between table cells */
+    box-shadow: 0 10px 60px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to the table */
+    transition: box-shadow 0.3s; /* Add a smooth transition effect */
+}
+
+.search-container {
+    margin: 0% 20%;
+}
+
+.color-primary {
+    background-color: $pale !important;
+}
+
+.my-display {
+    font-size: 40px;
+    font-weight: 200;
+}
+
+// .wineglass-container {
+//     height: 50vh;
+// }
+
+// .wineglass-container svg {
+//     height: 100%; /* Make the SVG take up the full height of the container */
+//     width: auto; /* Maintain the aspect ratio */
+
+//     position: relative;
+// }
+
+/* Custom CSS for modal transition */
+
+// .modal.fade.show {
+//     transition: transform 0.5s ease, opacity 0.3s ease;
+//     transform: translateY(-55%);
+//     opacity: 0;
+// }
+
+// /* Apply styles to the modal when it's open */
+// .modal.fade.show.mystyle {
+//     transform: translateY(0);
+//     transition: transform 0.8s ease, opacity 0.3s ease;
+//     opacity: 1;
+// }
+
+.mystyle {
+    transform: translateY(25%);
+}
+
+// .modal.fade.show {
+//     transition: opacity 1.3s;
+// }
+
+// .modal-backdrop.fade.show {
+//     transition: opacity 0.7s;
+// }
+
+// .modal-open {
+//     overflow: hidden !important;
+//     padding-right: 0px !important;
+// }
 
 .font-raleway {
     font-family: "Raleway", sans-serif;
-    font-size: 64px;
-    color: $primaryRed;
+    font-size: 92px;
+    color: $secondary;
+}
+.font-raleway-sm {
+    padding-top: 10%;
+    font-family: "Raleway", sans-serif;
+    font-size: 40px;
+    color: $secondary;
 }
 
 .shape-divider-bottom {
@@ -27,15 +167,17 @@ body {
     top: 30 rem;
     left: 0;
     width: 100%;
-    overflow: hidden;
+    overflow: visible;
     line-height: 0;
 }
 
 .shape-divider-bottom svg {
+    padding-top: 45%;
+
     position: relative;
     display: block;
-    width: calc(127% + 1.3px);
-    height: 304px;
+    width: calc(157% + 1.3px);
+    height: auto;
 }
 
 .shape-divider-bottom .shape-fill {

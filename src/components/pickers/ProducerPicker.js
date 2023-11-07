@@ -32,7 +32,7 @@ function ProducerPicker({ producers, setProducers, onSelect, nextRef }) {
             setAddedProducer(null);
         }
         const value = e.target.value;
-        console.log("event.producer", value);
+        // console.log("event.producer", value);
         setInputValue(value);
 
         // Filter grapes based on the input value
@@ -62,7 +62,7 @@ function ProducerPicker({ producers, setProducers, onSelect, nextRef }) {
     };
 
     const handleItemClick = (producer) => {
-        console.log("handleItemClick", producer);
+        // console.log("handleItemClick", producer);
         setInputValue(producer.name);
         setIsDropdownOpen(false);
         onSelect(producer); // Pass the selected grape to the parent component
@@ -120,26 +120,30 @@ function ProducerPicker({ producers, setProducers, onSelect, nextRef }) {
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
                 />
-                {filteredProducers.length === 0 && !addedProducer && (
-                    <AddProducer
-                        producers={producers}
-                        setProducers={setProducers}
-                        producerName={inputValue}
-                        setAddedProducer={setAddedProducer}
-                    />
-                    // <button className="btn btn-outline-info" type="button" onClick={handleAddProducer}>
-                    //     Add Producer
-                    // </button>
-                )}
+                {filteredProducers.length === 0 &&
+                    !addedProducer &&
+                    inputValue.length > 0 && (
+                        <AddProducer
+                            producers={producers}
+                            setProducers={setProducers}
+                            producerName={inputValue}
+                            setAddedProducer={setAddedProducer}
+                        />
+                        // <button className="btn btn-outline-info" type="button" onClick={handleAddProducer}>
+                        //     Add Producer
+                        // </button>
+                    )}
             </div>
-            {filteredProducers.length === 0 && !addedProducer && (
-                <p className="mx-1">
-                    <small className="my-3 py-3">
-                        You need to add the producer before you can submit the
-                        wine
-                    </small>
-                </p>
-            )}
+            {filteredProducers.length === 0 &&
+                !addedProducer &&
+                inputValue.length > 0 && (
+                    <p className="mx-1">
+                        <small className="my-3 py-3">
+                            You need to add the producer before you can submit
+                            the wine
+                        </small>
+                    </p>
+                )}
             {isDropdownOpen && (
                 <div className="card">
                     <div className="card-body producer-dropdown">

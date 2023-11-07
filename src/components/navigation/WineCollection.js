@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import UserWineCardDesktop from "../cards/UserWineCardDesktop";
 import UserWineCardMobile from "../cards/UserWineCardMobile";
 import UserWineTableCard from "../cards/UserWineTableCard";
+import { useLanguage } from "../../config/LanguageProvider";
 
 function WineCollection({ data, setData }) {
+    const { translations } = useLanguage();
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredWines, setFilteredWines] = useState(data ? data : []);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -60,49 +62,52 @@ function WineCollection({ data, setData }) {
     };
 
     return (
-        <div className="container">
-            <div className="container">
-                <h1 className="display-3 mt-2 text-center">
-                    Your Wine Collection
-                </h1>
-                <p className="lead">
-                    {/* Your subtitle or additional content goes here. */}
-                </p>
-
+        <div className="container pt-5">
+            <div className="search-container">
                 <form className="d-flex mb-3 rounded" role="search">
                     <input
-                        className="form-control me-2"
+                        className="form-control me-2 bg-white"
                         type="search"
-                        placeholder="Search wines..."
+                        placeholder={
+                            translations &&
+                            translations["wine.collection.search.placeholder"]
+                        }
                         aria-label="Search"
                         value={searchQuery}
                         onChange={handleSearchInputChange}
                     />
                 </form>
-                <div className="row justify-content-center">
-                    {filteredWines && (
-                        // <>
-                        //     {isSmallScreen ? (
-                        //         <UserWineCardMobile
-                        //             filteredWines={filteredWines}
-                        //             cardStates={cardStates}
-                        //             toggleCardState={toggleCardState}
-                        //         />
-                        //     ) : (
-                        //         <UserWineCardDesktop
-                        //             filteredWines={filteredWines}
-                        //             cardStates={cardStates}
-                        //             toggleCardState={toggleCardState}
-                        //         />
-                        //     )}
-                        // </>
-                        <UserWineTableCard
-                            filteredWines={filteredWines}
-                            cardStates={cardStates}
-                            toggleCardState={toggleCardState}
-                        />
-                    )}
-                </div>
+            </div>
+            <div className="row justify-content-center ">
+                {filteredWines && (
+                    // <>
+                    //     {isSmallScreen ? (
+                    //         <UserWineCardMobile
+                    //             filteredWines={filteredWines}
+                    //             cardStates={cardStates}
+                    //             toggleCardState={toggleCardState}
+                    //         />
+                    //     ) : (
+                    //         <UserWineTableCard
+                    //             filteredWines={filteredWines}
+                    //             cardStates={cardStates}
+                    //             toggleCardState={toggleCardState}
+                    //         />
+                    //     )}
+                    // </>
+
+                    <UserWineTableCard
+                        filteredWines={filteredWines}
+                        cardStates={cardStates}
+                        toggleCardState={toggleCardState}
+                    />
+
+                    // <UserWineCardDesktop
+                    //             filteredWines={filteredWines}
+                    //             cardStates={cardStates}
+                    //             toggleCardState={toggleCardState}
+                    //         />
+                )}
             </div>
         </div>
     );

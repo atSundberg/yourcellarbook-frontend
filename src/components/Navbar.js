@@ -1,110 +1,176 @@
 import React, { useState } from "react";
 
+import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import WineGlass from "./svg-images/WineGlass";
+
+import UsaFlag from "../assets/svgs/us.svg";
+
 import logo from "../assets/images/logo_yrcllrbk.png";
 import SignUpModal from "./modals/SignUpModal";
 import LoginModal from "./modals/LoginModal";
-import { Modal } from "bootstrap/dist/js/bootstrap.esm";
 
-function Navbar({ isLoggedIn, setIsLoggedIn, user, onLogin }) {
-    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+import { useNavigate } from "react-router-dom";
+import WavyBar from "./svg-images/WavyBar";
+import { useLanguage } from "../config/LanguageProvider";
 
-    // const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-    // const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+function Navbar({ isLoggedIn, user, onLogin, setRoute, onLogout }) {
+    const { translations } = useLanguage();
+    const [showModal, setShowModal] = useState(false);
+    const [showSignupModal, setShowSignupModal] = useState(false);
 
-    // const doLogin = () => {
-    //     const loginSuccessful = true;
-    //     console.log("doLogin();")
+    const handleLogin = async (token, user) => {
+        onLogin(token, user);
+        setRoute("homepage");
+    };
 
-    //     if (loginSuccessful) {
-    //         setIsLoginModalOpen(false);
-    //         const modal = new Modal(document.getElementById("loginModal"))
-    //         console.log(modal)
-
-    //         modal.toggle();
-    //         console.log(modal)
-
-    //         console.log("login successful ", isLoginModalOpen )
-    //     } else {
-
-    //     }
-    //     console.log(isLoginModalOpen)
-    // }
-
-    // const toggleLoginModal = () => setIsLoginModalOpen(!isLoginModalOpen);
-    // const openSignUpModal = () => setIsSignUpModalOpen(true);
+    const handleSwitchModal = () => {
+        if (showModal === true) {
+            setShowModal(false);
+            setShowSignupModal(true);
+        } else {
+            setShowSignupModal(false);
+            setShowModal(true);
+        }
+    };
 
     return (
-        <nav className="navbar navbar-expand-md navbar-light bg-warning">
-            <div className="container-fluid">
-                <a className="navbar-brand" href="#">
-                    <img
-                        src={logo}
-                        alt="Logo"
-                        style={{ maxHeight: 100 + "px" }}
-                        className="d-inline-block align-text-top p-2"
-                    />
-                </a>
+        <div>
+            <nav className="navbar navbar-expand-md navbar-light bg-warning">
+                <div className="container-fluid">
+                    <a className="navbar-brand" href="">
+                        <img
+                            src={logo}
+                            alt="Logo"
+                            style={{ maxHeight: 100 + "px" }}
+                            className="d-inline-block align-text-top p-2"
+                        />
+                    </a>
 
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarToggler"
-                    aria-controls="navbarToggler"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarToggler"
+                        aria-controls="navbarToggler"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
 
-                <div
-                    className="collapse navbar-collapse justify-content-end"
-                    id="navbarToggler">
-                    <div className="ml-auto">
-                        <ul className="navbar-nav mb-lg-0 align-items-end">
-                            {isLoggedIn
-                                ? console.log("isLoggedIn")
-                                : console.log("is not logged in")}
-                            {isLoggedIn ? (
+                    <div
+                        className="collapse navbar-collapse justify-content-end"
+                        id="navbarToggler">
+                        <div className="ml-auto">
+                            <ul className="navbar-nav mb-lg-0 align-items-end">
                                 <li className="nav-item p-1">
                                     <button
-                                        type="button"
-                                        className="btn btn-info btn-outlined">
-                                        Sign Out
+                                        className="btn btn-outline-info"
+                                        onClick={() => setRoute("public")}>
+                                        {translations &&
+                                            translations[
+                                                "navbar.button.public"
+                                            ]}
                                     </button>
                                 </li>
-                            ) : (
-                                <>
+                                {isLoggedIn ? (
+                                    <>
+                                        <li className="nav-item p-1">
+                                            <button
+                                                type="button"
+                                                className="btn btn-info btn-outlined"
+                                                onClick={() => {
+                                                    setRoute("account");
+                                                }}>
+                                                {
+                                                    <FontAwesomeIcon
+                                                        icon={faGear}
+                                                    />
+                                                }
+                                            </button>
+                                        </li>
+                                        <li className="nav-item p-1">
+                                            <button
+                                                type="button"
+                                                className="btn btn-info btn-outlined"
+                                                onClick={onLogout}>
+                                                {translations &&
+                                                    translations[
+                                                        "navbar.button.logout"
+                                                    ]}
+                                            </button>
+                                        </li>
+                                    </>
+                                ) : (
+                                    <>
+                                        <li className="nav-item p-1">
+                                            {showModal && (
+                                                <LoginModal
+                                                    onLogin={handleLogin}
+                                                    setShowModal={setShowModal}
+                                                    handleSwitchModal={
+                                                        handleSwitchModal
+                                                    }
+                                                />
+                                            )}
+                                            <button
+                                                type="button"
+                                                className="btn btn-info"
+                                                onClick={() =>
+                                                    setShowModal(true)
+                                                }>
+                                                {translations &&
+                                                    translations[
+                                                        "navbar.button.login"
+                                                    ]}
+                                            </button>
+                                        </li>
+                                        <li className="nav-item p-1">
+                                            {showSignupModal && (
+                                                <SignUpModal
+                                                    onSignup={handleLogin}
+                                                    setShowModal={
+                                                        setShowSignupModal
+                                                    }
+                                                    handleSwitchModal={
+                                                        handleSwitchModal
+                                                    }
+                                                />
+                                            )}
+                                            <button
+                                                type="button"
+                                                className="btn btn-info"
+                                                onClick={() =>
+                                                    setShowSignupModal(true)
+                                                }>
+                                                {translations &&
+                                                    translations[
+                                                        "navbar.button.signup"
+                                                    ]}
+                                            </button>
+                                        </li>
+                                    </>
+                                )}
+                                {/* {
                                     <li className="nav-item p-1">
                                         <button
-                                            type="button"
-                                            className="btn btn-info"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#loginModal">
-                                            Log in
-                                        </button>
-                                        {/* <button type="button" className="btn btn-info" onClick={toggleLoginModal}>Log in</button> */}
+                                            className="btn flag-button"
+                                            onClick={() =>
+                                                console.log("us")
+                                            }></button>
                                     </li>
-                                    <li className="nav-item p-1">
-                                        <button
-                                            type="button"
-                                            className="btn btn-info"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#signUpModal">
-                                            Sign up
-                                        </button>
-                                    </li>
-                                </>
-                            )}
-                        </ul>
+                                } */}
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <SignUpModal />
-            <LoginModal onLogin={onLogin} />
-            {/* <LoginModal isModalOpen={isLoginModalOpen} doLogin={doLogin} /> */}
-            {/* <SignUpModal openLoginModal={openLoginModal}/>
-            <LoginModal openSignUpModal={openSignUpModal}/> */}
-        </nav>
+                {(showModal || showSignupModal) && (
+                    <div className="modal-backdrop fade show"></div>
+                )}
+            </nav>
+            <WavyBar />
+        </div>
     );
 }
 

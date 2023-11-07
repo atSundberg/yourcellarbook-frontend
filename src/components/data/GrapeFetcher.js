@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
+import config from "../../config/config";
+import { useAuth } from "../../config/AuthContext";
 
 function GrapeFetcher({ setGrapes }) {
+    const { token } = useAuth();
     const processGrapeData = (data) => {
         const grapes = [];
         data.map((grape) => {
@@ -10,14 +13,20 @@ function GrapeFetcher({ setGrapes }) {
     };
 
     useEffect(() => {
-        fetch("http://localhost:8080/grapes")
+        fetch(config.production.apiUrl + "/grapes", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        })
             .then((response) => response.json())
             .then((data) => {
-                // console.log("Fetched data: ", data);
+                // console.log("Fetched grapes: ", data);
                 processGrapeData(data.result);
             })
             .catch((error) => {
-                console.error("Error fetching data", error);
+                // console.error("Error fetching data", error);
             });
     }, [setGrapes]);
 

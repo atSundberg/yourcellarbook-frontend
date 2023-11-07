@@ -39,7 +39,7 @@ function GrapePicker({ grapes, onSelect, inputId, grapeRef }) {
     };
 
     const handleItemClick = (grape) => {
-        console.log("GrapePicker.handleItemClick");
+        // console.log("GrapePicker.handleItemClick");
         setInputValue("");
         setIsDropdownOpen(false);
         // setTimeout(() => setIsDropdownOpen(false), 300);

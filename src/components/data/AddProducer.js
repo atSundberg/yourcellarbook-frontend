@@ -1,5 +1,7 @@
 // PostRequest.js (Separate component for post request)
 import React, { useState } from "react";
+import config from "../../config/config";
+import { useAuth } from "../../config/AuthContext";
 
 function AddProducer({
     producers,
@@ -7,20 +9,22 @@ function AddProducer({
     producerName,
     setAddedProducer,
 }) {
-    console.log("AddProducer.producer: ", producerName);
+    const { token } = useAuth();
+    // console.log("AddProducer.producer: ", producerName);
     const handlePostRequest = async () => {
         try {
             const producer = {
                 name: producerName,
             };
 
-            console.log("producer:::", producer);
+            // console.log("producer:::", producer);
             const producerResponse = await fetch(
-                "http://localhost:8080/producers",
+                config.production.apiUrl + "/producers",
                 {
                     method: "POST",
                     body: JSON.stringify(producer),
                     headers: {
+                        Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
                     },
                 }
@@ -28,7 +32,7 @@ function AddProducer({
 
             if (producerResponse.ok) {
                 const producerResult = await producerResponse.json();
-                console.log("producerResult: ", producerResult.result);
+                // console.log("producerResult: ", producerResult.result);
                 setAddedProducer(producerResult.result);
                 setProducers([...producers, producerResult.result]);
 
@@ -37,7 +41,7 @@ function AddProducer({
                 // Handle error
             }
         } catch (error) {
-            console.log("Error adding producer: ", error);
+            // console.log("Error adding producer: ", error);
             // Handle any exceptions
         }
     };
