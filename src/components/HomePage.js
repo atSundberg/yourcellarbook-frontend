@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import WineCollection from "./navigation/WineCollection";
 import AddWineForm from "./navigation/AddWineForm";
 import { useLanguage } from "../config/LanguageProvider";
+import WineHistory from "./navigation/WineHistory";
 
 function HomePage({ data, setData, user }) {
     const { translations } = useLanguage();
@@ -80,7 +81,9 @@ function HomePage({ data, setData, user }) {
                             id="nav-history"
                             role="tabpanel"
                             aria-labelledby="nav-history-tab"
-                            tabIndex="0"></div>
+                            tabIndex="0">
+                            <WineHistory data={data} setData={setData} />
+                        </div>
                         <div
                             className="tab-pane fade show active"
                             id="nav-collection"

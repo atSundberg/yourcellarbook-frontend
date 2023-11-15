@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import AddProducer from "../data/AddProducer";
+import { useLanguage } from "../../config/LanguageProvider";
 
 function ProducerPicker({ producers, setProducers, onSelect, nextRef }) {
+    const { translations } = useLanguage();
     const [inputValue, setInputValue] = useState("");
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [filteredProducers, setFilteredProducers] = useState(producers);
@@ -104,7 +106,7 @@ function ProducerPicker({ producers, setProducers, onSelect, nextRef }) {
     return (
         <div className="mb-3">
             <label htmlFor="producer" className="form-label">
-                Producer
+                {translations && translations["wine.producer"]}
             </label>
 
             <div className="input-group">
@@ -139,8 +141,8 @@ function ProducerPicker({ producers, setProducers, onSelect, nextRef }) {
                 inputValue.length > 0 && (
                     <p className="mx-1">
                         <small className="my-3 py-3">
-                            You need to add the producer before you can submit
-                            the wine
+                            {translations &&
+                                translations["wine.addition.producer.add.info"]}
                         </small>
                     </p>
                 )}

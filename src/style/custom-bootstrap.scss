@@ -54,6 +54,18 @@ $nav-tabs-border-width: 0;
     border-top-left-radius: 5%;
 }
 
+.container-fh {
+    height: 80vh;
+}
+
+.welcome-banner {
+    background-image: url(../assets/svgs/welcome-banner.svg);
+    background-repeat: no-repeat;
+    background-position-x: center;
+    height: 75vmin;
+    background-size: auto;
+}
+
 .public-container {
     padding: 5% 10%;
     font-family: "Roboto Mono", monospace;
@@ -73,14 +85,31 @@ $nav-tabs-border-width: 0;
     background-repeat: no-repeat;
 }
 
+.card-wine-list-content {
+    height: 245px;
+    overflow-y: auto;
+}
+
 .display-9 {
     font-size: 24px;
     font-weight: 800;
 }
 
+.description {
+    font-size: 18px;
+    font-weight: 200;
+}
+
 .account-container {
-    padding: 5% 15%;
+    padding: 5% 15% 10%;
     font-weight: 400;
+}
+
+.flag-logo {
+    width: 25px;
+    height: auto;
+    border-radius: 10%;
+    margin-right: 8px;
 }
 
 $card-border-color: none;
@@ -90,7 +119,7 @@ $card-border-color: none;
     margin: 0% 10%;
     border-collapse: separate;
     border-spacing: 0; /* Add spacing between table cells */
-    box-shadow: 0 10px 60px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to the table */
+    box-shadow: 0 10px 60px rgba(0, 0, 0, 0.05); /* Add a subtle shadow to the table */
     transition: box-shadow 0.3s; /* Add a smooth transition effect */
 }
 
@@ -107,48 +136,9 @@ $card-border-color: none;
     font-weight: 200;
 }
 
-// .wineglass-container {
-//     height: 50vh;
-// }
-
-// .wineglass-container svg {
-//     height: 100%; /* Make the SVG take up the full height of the container */
-//     width: auto; /* Maintain the aspect ratio */
-
-//     position: relative;
-// }
-
-/* Custom CSS for modal transition */
-
-// .modal.fade.show {
-//     transition: transform 0.5s ease, opacity 0.3s ease;
-//     transform: translateY(-55%);
-//     opacity: 0;
-// }
-
-// /* Apply styles to the modal when it's open */
-// .modal.fade.show.mystyle {
-//     transform: translateY(0);
-//     transition: transform 0.8s ease, opacity 0.3s ease;
-//     opacity: 1;
-// }
-
 .mystyle {
     transform: translateY(25%);
 }
-
-// .modal.fade.show {
-//     transition: opacity 1.3s;
-// }
-
-// .modal-backdrop.fade.show {
-//     transition: opacity 0.7s;
-// }
-
-// .modal-open {
-//     overflow: hidden !important;
-//     padding-right: 0px !important;
-// }
 
 .font-raleway {
     font-family: "Raleway", sans-serif;
@@ -160,6 +150,18 @@ $card-border-color: none;
     font-family: "Raleway", sans-serif;
     font-size: 40px;
     color: $secondary;
+}
+
+.wine-glass-image {
+    background-position: 5%;
+    background-image: url("../assets/svgs/ycb-tab-logo-transparent.svg");
+    background-repeat: no-repeat;
+}
+
+.wine-glass-image-sm {
+    background-position: 10%;
+    background-image: url("../assets/svgs/ycb-tab-logo-transparent.svg");
+    background-repeat: no-repeat;
 }
 
 .shape-divider-bottom {

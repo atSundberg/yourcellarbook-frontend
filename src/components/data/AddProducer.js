@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import config from "../../config/config";
 import { useAuth } from "../../config/AuthContext";
+import { useLanguage } from "../../config/LanguageProvider";
 
 function AddProducer({
     producers,
@@ -10,6 +11,7 @@ function AddProducer({
     setAddedProducer,
 }) {
     const { token } = useAuth();
+    const { translations } = useLanguage();
     // console.log("AddProducer.producer: ", producerName);
     const handlePostRequest = async () => {
         try {
@@ -17,13 +19,15 @@ function AddProducer({
                 name: producerName,
             };
 
-            // console.log("producer:::", producer);
+            // // console.log("producer:::", producer);
             const producerResponse = await fetch(
+                config.production.apiUrl + "/producers",
                 config.production.apiUrl + "/producers",
                 {
                     method: "POST",
                     body: JSON.stringify(producer),
                     headers: {
+                        Authorization: `Bearer ${token}`,
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
                     },
@@ -32,7 +36,7 @@ function AddProducer({
 
             if (producerResponse.ok) {
                 const producerResult = await producerResponse.json();
-                // console.log("producerResult: ", producerResult.result);
+                // // console.log("producerResult: ", producerResult.result);
                 setAddedProducer(producerResult.result);
                 setProducers([...producers, producerResult.result]);
 
@@ -41,7 +45,7 @@ function AddProducer({
                 // Handle error
             }
         } catch (error) {
-            // console.log("Error adding producer: ", error);
+            // // console.log("Error adding producer: ", error);
             // Handle any exceptions
         }
     };
@@ -52,7 +56,7 @@ function AddProducer({
             type="submit"
             className="btn btn-outline-info p-2"
             onClick={handlePostRequest}>
-            Add Producer
+            {translations && translations["wine.addition.producer.add"]}
         </button>
         // </div>
     );

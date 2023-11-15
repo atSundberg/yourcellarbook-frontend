@@ -17,25 +17,41 @@ function WineCollection({ data, setData }) {
     useEffect(() => {
         // Function to filter wines based on the search input
         const filterWines = () => {
+            console.log("inside.filterWines.data: ", data);
             if (searchQuery === "") {
                 // If the search input is empty, show all wines
-                return data;
+                return data.filter((userWine) => {
+                    return !userWine.is_finished;
+                });
             } else {
                 // Filter the wines based on the search input
                 return data.filter((userWine) => {
-                    const wineInfo =
-                        userWine.wine.name.toLowerCase() +
-                        userWine.wine.producer.name.toLowerCase() +
-                        userWine.wine.region.name.toLowerCase() +
-                        userWine.wine.region.country.toLowerCase();
-                    return wineInfo.includes(searchQuery.toLowerCase());
+                    if (!userWine.is_finished) {
+                        const wineInfo =
+                            getNormalizedText(userWine.wine.name) +
+                            getNormalizedText(userWine.wine.producer.name) +
+                            getNormalizedText(userWine.wine.region.name) +
+                            getNormalizedText(userWine.wine.region.country);
+                        return wineInfo.includes(
+                            getNormalizedText(searchQuery)
+                        );
+                    }
                 });
             }
         };
 
         // Update the filtered wines state
-        setFilteredWines(filterWines());
+        if (data) {
+            setFilteredWines(filterWines());
+        }
     }, [searchQuery, data]);
+
+    const getNormalizedText = (text) => {
+        return text
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+    };
 
     useEffect(() => {
         // Check screen size when the component mounts and on window resize
@@ -50,6 +66,25 @@ function WineCollection({ data, setData }) {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
+
+    const handleWineConsumed = (wineConsumed) => {
+        console.log("wineCollection.handleWineConsumed, ", wineConsumed);
+        setData((prevData) => {
+            console.log(prevData);
+            return prevData.map((wine) => {
+                console.log(
+                    "Equality check",
+                    wine.user_wine_id === wineConsumed.user_wine_id
+                );
+                if (wine.user_wine_id === wineConsumed.user_wine_id) {
+                    console.log("ARE EQUAL", wineConsumed);
+                    return wineConsumed; // Replace the matched wine with wineConsumed
+                } else {
+                    return wine; // Keep other wines unchanged
+                }
+            });
+        });
+    };
 
     const toggleCardState = (index) => {
         const newCardStates = [...cardStates];
@@ -100,6 +135,7 @@ function WineCollection({ data, setData }) {
                         filteredWines={filteredWines}
                         cardStates={cardStates}
                         toggleCardState={toggleCardState}
+                        handleWineConsumed={handleWineConsumed}
                     />
 
                     // <UserWineCardDesktop

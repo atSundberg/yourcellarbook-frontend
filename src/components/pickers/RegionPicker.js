@@ -89,7 +89,7 @@ function RegionPicker({ regions, onSelect, regionRef, nextRef }) {
     return (
         <div className="mb-3">
             <label htmlFor="region" className="form-label">
-                {translations && translations["wine.addition.region"]}
+                {translations && translations["wine.region"]}
             </label>
             <div className="input-group">
                 <input
