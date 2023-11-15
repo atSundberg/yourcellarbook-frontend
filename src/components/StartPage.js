@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import WineGlass from "./svg-images/WineGlass";
 import { useLanguage } from "../config/LanguageProvider";
+import React, { useEffect } from "react";
+import WineGlass from "./svg-images/WineGlass";
+import { useLanguage } from "../config/LanguageProvider";
 
 function StartPage() {
     const { translations } = useLanguage();
