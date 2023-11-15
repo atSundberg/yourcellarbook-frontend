@@ -118,20 +118,6 @@ function EditWineModal({ userWine, isModalOpen, setModalOpen }) {
                                         autoComplete="off"
                                     />
                                 </div>
-
-                                <div className="mb-3">
-                                    <div>
-                                        <label
-                                            htmlFor="rating"
-                                            className="form-label">
-                                            {translations &&
-                                                translations[
-                                                    "modal.drink.rating"
-                                                ]}
-                                        </label>
-                                    </div>
-                                    <div className="row text-center"></div>
-                                </div>
                             </div>
 
                             <div className="modal-footer">

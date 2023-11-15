@@ -7,9 +7,6 @@ import UserDataFetcher from "./data/UserDataFetcher";
 import { useAuth } from "../config/AuthContext";
 import AccountPage from "./AccountPage";
 import PublicWineListsPage from "./PublicWineListsPage";
-import { useAuth } from "../config/AuthContext";
-import AccountPage from "./AccountPage";
-import PublicWineListsPage from "./PublicWineListsPage";
 
 function App() {
     const [route, setRoute] = useState("startpage");
