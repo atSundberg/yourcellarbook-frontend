@@ -9,7 +9,7 @@ function PublicWineListsFetcher({ setPublicLists }) {
     };
 
     useEffect(() => {
-        fetch(config.development.apiUrl + "/user/wine/public", {
+        fetch(config.production.apiUrl + "/user/wine/public", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

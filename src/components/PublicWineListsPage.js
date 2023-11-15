@@ -8,12 +8,16 @@ function PublicWineListsPage({ setRoute, isLoggedIn }) {
     const { translations } = useLanguage();
     const [publicLists, setPublicLists] = useState([]);
 
+    useEffect(() => {
+        console.log("PublicLists.lists: ", publicLists);
+    }, [publicLists]);
+
     return (
         <div>
             <PublicWineListsFetcher setPublicLists={setPublicLists} />
-            <div className="row ms-5 mt-3">
+            <div className="row ms-5 mt-1">
                 {/* <div className="ms-5 mt-3 d-flex flex-column "> */}
-                <div className="col-sm-4 col-2 ">
+                <div className="col-sm-2 col-1 ">
                     <button
                         className="btn btn-info"
                         onClick={() =>
@@ -22,12 +26,20 @@ function PublicWineListsPage({ setRoute, isLoggedIn }) {
                         {<FontAwesomeIcon icon={faLongArrowLeft} />}
                     </button>
                 </div>
-                <div className="col d-flex">
+            </div>
+            <div className="row justify-content-center">
+                <div className="col">
                     <p className="text-center display-6">
                         {translations && translations["public.wines.title"]}
                     </p>
                 </div>
+
                 {/* </div> */}
+            </div>
+            <div className="row justify-content-center">
+                <div className="col-8 description">
+                    {translations && translations["public.wines.description"]}
+                </div>
             </div>
             <div className="public-container">
                 <div className="row">
@@ -39,13 +51,18 @@ function PublicWineListsPage({ setRoute, isLoggedIn }) {
                                 <div className="card">
                                     {/* <h5 className="card-header">WineList</h5> */}
                                     <div className="card-body">
-                                        <h5 className="card-title ">
-                                            Wine List no. {index + 1}
+                                        <h5 className="card-title text-truncate">
+                                            {list[index].wineListName
+                                                ? list[index].wineListName
+                                                : "Wine List no." + (index + 1)}
+                                            {console.log(
+                                                ">>> LIST",
+                                                list[index].wineListName
+                                            )}
                                         </h5>
                                         <hr />
-                                        {list
-                                            .slice(0, 3)
-                                            .map((data, wineIndex) => (
+                                        <div className="card-wine-list-content">
+                                            {list.map((data, wineIndex) => (
                                                 <div key={wineIndex}>
                                                     <p className="mb-0 text-uppercase">
                                                         {data.wine.vintage},{" "}
@@ -66,6 +83,7 @@ function PublicWineListsPage({ setRoute, isLoggedIn }) {
                                                     <hr />
                                                 </div>
                                             ))}
+                                        </div>
 
                                         <button className="btn btn-info w-100">
                                             {translations &&

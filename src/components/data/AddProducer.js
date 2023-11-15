@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import config from "../../config/config";
 import { useAuth } from "../../config/AuthContext";
+import { useLanguage } from "../../config/LanguageProvider";
 
 function AddProducer({
     producers,
@@ -10,6 +11,7 @@ function AddProducer({
     setAddedProducer,
 }) {
     const { token } = useAuth();
+    const { translations } = useLanguage();
     // console.log("AddProducer.producer: ", producerName);
     const handlePostRequest = async () => {
         try {
@@ -52,7 +54,7 @@ function AddProducer({
             type="submit"
             className="btn btn-outline-info p-2"
             onClick={handlePostRequest}>
-            Add Producer
+            {translations && translations["wine.addition.producer.add"]}
         </button>
         // </div>
     );

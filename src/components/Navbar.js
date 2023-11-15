@@ -3,17 +3,13 @@ import React, { useState } from "react";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import WineGlass from "./svg-images/WineGlass";
-
-import UsaFlag from "../assets/svgs/us.svg";
-
 import logo from "../assets/images/logo_yrcllrbk.png";
 import SignUpModal from "./modals/SignUpModal";
 import LoginModal from "./modals/LoginModal";
 
-import { useNavigate } from "react-router-dom";
 import WavyBar from "./svg-images/WavyBar";
 import { useLanguage } from "../config/LanguageProvider";
+import LanguageDropdown from "./dropdowns/LanguageDropdown";
 
 function Navbar({ isLoggedIn, user, onLogin, setRoute, onLogout }) {
     const { translations } = useLanguage();
@@ -74,9 +70,12 @@ function Navbar({ isLoggedIn, user, onLogin, setRoute, onLogout }) {
                                             ]}
                                     </button>
                                 </li>
+                                <li className="nav-item p-1 order-5">
+                                    <LanguageDropdown />
+                                </li>
                                 {isLoggedIn ? (
                                     <>
-                                        <li className="nav-item p-1">
+                                        <li className="nav-item p-1 order-last">
                                             <button
                                                 type="button"
                                                 className="btn btn-info btn-outlined"

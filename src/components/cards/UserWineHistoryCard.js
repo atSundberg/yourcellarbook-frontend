@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import DrinkWineModal from "../modals/DrinkWineModal";
 import { useLanguage } from "../../config/LanguageProvider";
-import EditWineModal from "../modals/EditWineModal";
 
-function UserWineTableCard({
+function UserWineHistoryCard({
     filteredWines,
     cardStates,
     toggleCardState,
@@ -106,15 +104,29 @@ function UserWineTableCard({
                                                 ]}
                                         </td>
                                     </tr>
+
                                     <tr>
                                         <td>
                                             {translations &&
                                                 translations[
-                                                    "wine.collection.open.quantity"
+                                                    "wine.personal.rating"
                                                 ]}
                                         </td>
-                                        <td className="text-end">
-                                            {userWine.quantity}
+
+                                        <td className="text-end ps-5">
+                                            {userWine.rating}/5
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-nowrap">
+                                            {translations &&
+                                                translations[
+                                                    "wine.personal.thoughts"
+                                                ]}
+                                        </td>
+
+                                        <td className="text-end ps-5">
+                                            {userWine.thoughts}
                                         </td>
                                     </tr>
                                     {userWine.storing_location && (
@@ -150,22 +162,15 @@ function UserWineTableCard({
                             <div className="container">
                                 <div className="row">
                                     <div className="col">
-                                        <DrinkWineModal
-                                            userWine={userWine}
-                                            isModalOpen={drinkWineModalOpen}
-                                            setModalOpen={setDrinkWineModalOpen}
-                                            handleWineConsumed={
-                                                handleWineConsumed
-                                            }
-                                        />
+                                        <button className="btn btn-info  w-100">
+                                            {translations &&
+                                                translations[
+                                                    "wine.history.open.add"
+                                                ]}
+                                        </button>
                                     </div>
                                     <div className="col">
-                                        <EditWineModal
-                                            userWine={userWine}
-                                            isModalOpen={editWineModalOpen}
-                                            setModalOpen={setEditWineModalOpen}
-                                        />
-                                        {/* <button
+                                        <button
                                             className="btn btn-outline-info w-100"
                                             onClick={() =>
                                                 setEditWineModalOpen(true)
@@ -174,7 +179,7 @@ function UserWineTableCard({
                                                 translations[
                                                     "wine.collection.open.edit"
                                                 ]}
-                                        </button> */}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -186,4 +191,4 @@ function UserWineTableCard({
     ));
 }
 
-export default UserWineTableCard;
+export default UserWineHistoryCard;

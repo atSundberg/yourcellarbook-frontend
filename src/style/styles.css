@@ -26,6 +26,18 @@ body {
   border-top-left-radius: 5%;
 }
 
+.container-fh {
+  height: 80vh;
+}
+
+.welcome-banner {
+  background-image: url(../assets/svgs/welcome-banner.svg);
+  background-repeat: no-repeat;
+  background-position-x: center;
+  height: 75vmin;
+  background-size: auto;
+}
+
 .public-container {
   padding: 5% 10%;
   font-family: "Roboto Mono", monospace;
@@ -44,14 +56,31 @@ body {
   background-repeat: no-repeat;
 }
 
+.card-wine-list-content {
+  height: 245px;
+  overflow-y: auto;
+}
+
 .display-9 {
   font-size: 24px;
   font-weight: 800;
 }
 
+.description {
+  font-size: 18px;
+  font-weight: 200;
+}
+
 .account-container {
-  padding: 5% 15%;
+  padding: 5% 15% 10%;
   font-weight: 400;
+}
+
+.flag-logo {
+  width: 25px;
+  height: auto;
+  border-radius: 10%;
+  margin-right: 8px;
 }
 
 .form-container {
@@ -59,7 +88,7 @@ body {
   margin: 0% 10%;
   border-collapse: separate;
   border-spacing: 0; /* Add spacing between table cells */
-  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to the table */
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.05); /* Add a subtle shadow to the table */
   transition: box-shadow 0.3s; /* Add a smooth transition effect */
 }
 
@@ -76,7 +105,6 @@ body {
   font-weight: 200;
 }
 
-/* Custom CSS for modal transition */
 .mystyle {
   transform: translateY(25%);
 }
@@ -92,6 +120,18 @@ body {
   font-family: "Raleway", sans-serif;
   font-size: 40px;
   color: #783937;
+}
+
+.wine-glass-image {
+  background-position: 5%;
+  background-image: url("../assets/svgs/ycb-tab-logo-transparent.svg");
+  background-repeat: no-repeat;
+}
+
+.wine-glass-image-sm {
+  background-position: 10%;
+  background-image: url("../assets/svgs/ycb-tab-logo-transparent.svg");
+  background-repeat: no-repeat;
 }
 
 .shape-divider-bottom {

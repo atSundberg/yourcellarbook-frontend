@@ -139,7 +139,7 @@ function AddWineForm({ data, setData, user }) {
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">
-                        {translations && translations["wine.addition.name"]}
+                        {translations && translations["wine.name"]}
                     </label>
                     <input
                         type="text"
@@ -162,14 +162,14 @@ function AddWineForm({ data, setData, user }) {
 
                 <div className="mb-3">
                     <label htmlFor="vintage" className="form-label">
-                        {translations && translations["wine.addition.vintage"]}
+                        {translations && translations["wine.vintage"]}
                     </label>
                     <input
                         type="number"
                         className="form-control"
                         id="vintage"
                         name="vintage"
-                        value={wineData.vintage}
+                        value={wineData.vintage ? wineData.vintage : ""}
                         onChange={handleChange}
                         min="1800"
                         max="2030"
@@ -188,7 +188,7 @@ function AddWineForm({ data, setData, user }) {
 
                 <div className="mb-3">
                     <label htmlFor="country" className="form-label">
-                        {translations && translations["wine.addition.country"]}
+                        {translations && translations["wine.country"]}
                     </label>
                     <input
                         type="text"
@@ -222,8 +222,7 @@ function AddWineForm({ data, setData, user }) {
                 <div className="mb-3">
                     <div className="form-group">
                         <label htmlFor="grapeInput">
-                            {translations &&
-                                translations["wine.addition.grapes"]}
+                            {translations && translations["wine.grapes"]}
                         </label>
 
                         <GrapePicker
@@ -252,7 +251,7 @@ function AddWineForm({ data, setData, user }) {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">
-                        {translations && translations["wine.addition.category"]}
+                        {translations && translations["wine.type"]}
                     </label>
                     <select
                         className="form-select"

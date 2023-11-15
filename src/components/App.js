@@ -56,7 +56,7 @@ function App() {
                 />
             )}
             {route === "account" && (
-                <AccountPage setRoute={setRoute} username={user.username} />
+                <AccountPage setRoute={setRoute} user={user} />
             )}
 
             {route === "homepage" && (

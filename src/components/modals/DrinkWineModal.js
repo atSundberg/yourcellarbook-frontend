@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "../../config/LanguageProvider";
+import { useAuth } from "../../config/AuthContext";
+import { drinkWine } from "../../api/drinkWine";
 
-function DrinkWineModal({ userWine, isModalOpen, setModalOpen }) {
+function DrinkWineModal({
+    userWine,
+    isModalOpen,
+    setModalOpen,
+    handleWineConsumed,
+}) {
+    const { token } = useAuth();
     const { translations } = useLanguage();
     const [drinkWineData, setDrinkWineData] = useState({
         thoughts: "",
@@ -9,44 +17,28 @@ function DrinkWineModal({ userWine, isModalOpen, setModalOpen }) {
         quantity: 1,
     });
 
+    const handleWineConsumption = (result) => {
+        console.log("handleWineConsumption... ", result);
+
+        handleWineConsumed(result);
+    };
+
     useEffect(() => {
         console.log("DrinkWineModal.userWine: ", userWine);
         console.log("DrinkWineModal.isModalOpen: ", isModalOpen);
     }, [userWine]);
 
-    // useEffect(() => {
-    //     if (isModalOpen) {
-    //         // Add event listener to detect clicks outside the modal
-    //         const handleClickOutside = (event) => {
-    //             if (
-    //                 modalRef.current &&
-    //                 !modalRef.current.contains(event.target)
-    //             ) {
-    //                 setModalOpen(false);
-    //             }
-    //         };
-
-    //         // Attach the event listener
-    //         document.addEventListener("click", handleClickOutside);
-
-    //         // Remove the event listener when the modal is closed
-    //         return () => {
-    //             document.removeEventListener("click", handleClickOutside);
-    //         };
-    //     }
-    // }, [isModalOpen]);
-
     const handleDrinkWine = async (e) => {
         e.preventDefault();
         // console.log("Navbar.handleLogin: ", region);
         try {
-            // const result = await addRegion(token, region);
-            // if (result) {
-            //     handleRegionAddition(region);
-            //     setShowModal(false);
-            // }
+            const result = await drinkWine(token, userWine, drinkWineData);
+            if (result) {
+                handleWineConsumption(result);
+                setModalOpen(false);
+            }
         } catch (error) {
-            console.error("Login failed:", error);
+            console.error("Confirm drink wine failed:", error);
         }
     };
 
@@ -84,7 +76,11 @@ function DrinkWineModal({ userWine, isModalOpen, setModalOpen }) {
                                 <h5
                                     className="modal-title"
                                     id="loginModalLabel">
-                                    Drink the wine <em>{userWine.wine.name}</em>
+                                    {translations &&
+                                        translations["modal.drink.title"]}
+                                    <em className="ms-2">
+                                        {userWine.wine.name}
+                                    </em>
                                 </h5>
 
                                 <button
@@ -99,7 +95,10 @@ function DrinkWineModal({ userWine, isModalOpen, setModalOpen }) {
                                     <label
                                         htmlFor="quantity"
                                         className="form-label">
-                                        Quantiy (bottles consumed)
+                                        {translations &&
+                                            translations[
+                                                "modal.drink.quantity"
+                                            ]}
                                     </label>
                                     <input
                                         type="number"
@@ -115,7 +114,10 @@ function DrinkWineModal({ userWine, isModalOpen, setModalOpen }) {
                                     <label
                                         htmlFor="thoughts"
                                         className="form-label">
-                                        Thoughts
+                                        {translations &&
+                                            translations[
+                                                "modal.drink.thoughts"
+                                            ]}
                                     </label>
                                     <input
                                         type="text"
@@ -123,7 +125,12 @@ function DrinkWineModal({ userWine, isModalOpen, setModalOpen }) {
                                         id="thoughts"
                                         name="thoughts"
                                         value={drinkWineData.thoughts}
-                                        placeholder="Enter your thoughts about the wine"
+                                        placeholder={
+                                            translations &&
+                                            translations[
+                                                "modal.drink.thoughts.placeholder"
+                                            ]
+                                        }
                                         onChange={handleChange}
                                         autoComplete="off"
                                     />
@@ -134,7 +141,10 @@ function DrinkWineModal({ userWine, isModalOpen, setModalOpen }) {
                                         <label
                                             htmlFor="rating"
                                             className="form-label">
-                                            Rating
+                                            {translations &&
+                                                translations[
+                                                    "modal.drink.rating"
+                                                ]}
                                         </label>
                                     </div>
                                     <div className="row text-center">
@@ -260,7 +270,10 @@ function DrinkWineModal({ userWine, isModalOpen, setModalOpen }) {
                                                 onClick={(e) =>
                                                     handleDrinkWine(e)
                                                 }>
-                                                Drink
+                                                {translations &&
+                                                    translations[
+                                                        "modal.drink.confirm"
+                                                    ]}
                                             </button>
                                         </div>
                                         <div className="col-4">
@@ -270,7 +283,10 @@ function DrinkWineModal({ userWine, isModalOpen, setModalOpen }) {
                                                 onClick={() =>
                                                     setModalOpen(false)
                                                 }>
-                                                Close
+                                                {translations &&
+                                                    translations[
+                                                        "modal.drink.close"
+                                                    ]}
                                             </button>
                                         </div>
                                     </div>
