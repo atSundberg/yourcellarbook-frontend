@@ -14,7 +14,7 @@ function LanguageProvider({ children }) {
     const fetchTranslations = async (lang) => {
         try {
             const response = await fetch(
-                config.development.apiUrl + `/translations?countryCode=${lang}`
+                config.production.apiUrl + `/translations?countryCode=${lang}`
             );
             const data = await response.json();
             setTranslations(data.result);

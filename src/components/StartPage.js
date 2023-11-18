@@ -13,7 +13,7 @@ function StartPage() {
         <div className="">
             <div className="welcome-banner"></div>
             <div className="container">
-                <div className="row justify-content-center">
+                {/* <div className="row justify-content-center">
                     <div className="col-12 col-md-6">
                         <div className="card bg-secondary text-white">
                             <div className="card-body">
@@ -56,7 +56,7 @@ function StartPage() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* <div className="row mt-0">
                     <div className="col-8 d-none d-md-block ms-3">
                         <div className="container text-center">
