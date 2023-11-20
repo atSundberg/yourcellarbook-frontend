@@ -11,7 +11,7 @@ export const saveWineListInfo = async (
         updatedUser.wineListName = wineListName;
         updatedUser.showWineList = isWineListPublic;
 
-        console.log("saveWineListInfo.updated: ", updatedUser);
+        // console.log("saveWineListInfo.updated: ", updatedUser);
 
         const response = await fetch(
             config.production.apiUrl + "/users/winelist",
@@ -27,7 +27,7 @@ export const saveWineListInfo = async (
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             return data.result;
         } else {
             throw new Error("Could not save wine list info");

@@ -18,15 +18,15 @@ function DrinkWineModal({
     });
 
     const handleWineConsumption = (result) => {
-        console.log("handleWineConsumption... ", result);
+        // console.log("handleWineConsumption... ", result);
 
         handleWineConsumed(result);
     };
 
-    useEffect(() => {
-        console.log("DrinkWineModal.userWine: ", userWine);
-        console.log("DrinkWineModal.isModalOpen: ", isModalOpen);
-    }, [userWine]);
+    // useEffect(() => {
+    //     console.log("DrinkWineModal.userWine: ", userWine);
+    //     console.log("DrinkWineModal.isModalOpen: ", isModalOpen);
+    // }, [userWine]);
 
     const handleDrinkWine = async (e) => {
         e.preventDefault();
@@ -139,7 +139,7 @@ function DrinkWineModal({
                                 <div className="mb-3">
                                     <div>
                                         <label
-                                            htmlFor="rating"
+                                            htmlFor="inlineRatingsRadio"
                                             className="form-label">
                                             {translations &&
                                                 translations[
@@ -153,8 +153,8 @@ function DrinkWineModal({
                                                 <input
                                                     className="form-check-input"
                                                     type="radio"
-                                                    name="inlineRadioOptions"
-                                                    id="inlineRadio1"
+                                                    name="ratingOptions"
+                                                    id="inlineRatingsRadio"
                                                     value="1"
                                                     checked={
                                                         drinkWineData.rating ===
@@ -166,7 +166,7 @@ function DrinkWineModal({
                                                 />
                                                 <label
                                                     className="form-check-label"
-                                                    htmlFor="inlineRadio1">
+                                                    htmlFor="inlineRatingsRadio">
                                                     1
                                                 </label>
                                             </div>
@@ -174,7 +174,7 @@ function DrinkWineModal({
                                                 <input
                                                     className="form-check-input"
                                                     type="radio"
-                                                    name="inlineRadioOptions"
+                                                    name="ratingOptions"
                                                     id="inlineRadio2"
                                                     value="2"
                                                     checked={
@@ -195,7 +195,7 @@ function DrinkWineModal({
                                                 <input
                                                     className="form-check-input"
                                                     type="radio"
-                                                    name="inlineRadioOptions"
+                                                    name="ratingOptions"
                                                     id="inlineRadio3"
                                                     value="3"
                                                     checked={
@@ -216,7 +216,7 @@ function DrinkWineModal({
                                                 <input
                                                     className="form-check-input"
                                                     type="radio"
-                                                    name="inlineRadioOptions"
+                                                    name="ratingOptions"
                                                     id="inlineRadio4"
                                                     value="4"
                                                     checked={
@@ -237,7 +237,7 @@ function DrinkWineModal({
                                                 <input
                                                     className="form-check-input"
                                                     type="radio"
-                                                    name="inlineRadioOptions"
+                                                    name="ratingOptions"
                                                     id="inlineRadio5"
                                                     value="5"
                                                     checked={

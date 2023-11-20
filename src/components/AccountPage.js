@@ -33,7 +33,7 @@ function AccountPage({ setRoute, user }) {
     };
 
     const handleSaveChanges = async (e) => {
-        console.log("account.handleSaveChanges");
+        // console.log("account.handleSaveChanges");
         try {
             const result = await saveWineListInfo(
                 token,
@@ -51,10 +51,6 @@ function AccountPage({ setRoute, user }) {
             console.error("Saving wine list settings failed:", error);
         }
     };
-
-    useEffect(() => {
-        console.log("Accountpage.user: ", user);
-    }, [user]);
 
     return (
         <div>

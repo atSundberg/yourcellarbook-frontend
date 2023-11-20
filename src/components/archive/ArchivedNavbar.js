@@ -61,9 +61,6 @@ function Navbar({ isLoggedIn, setIsLoggedIn, user, onLogin }) {
                     id="navbarToggler">
                     <div className="ml-auto">
                         <ul className="navbar-nav mb-lg-0 align-items-end">
-                            {isLoggedIn
-                                ? console.log("isLoggedIn")
-                                : console.log("is not logged in")}
                             {isLoggedIn ? (
                                 <li className="nav-item p-1">
                                     <button

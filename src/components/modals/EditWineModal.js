@@ -7,14 +7,14 @@ function EditWineModal({ userWine, isModalOpen, setModalOpen }) {
     const { translations } = useLanguage();
     const [editedWineData, setEditedWineData] = useState(userWine);
 
-    useEffect(() => {
-        console.log("EditWineModal.userWine: ", userWine);
-        console.log("EditWineModal.editedData: ", editedWineData);
-    }, [userWine, editedWineData]);
+    // useEffect(() => {
+    //     console.log("EditWineModal.userWine: ", userWine);
+    //     console.log("EditWineModal.editedData: ", editedWineData);
+    // }, [userWine, editedWineData]);
 
     const handleEditWine = async (e) => {
         e.preventDefault();
-        console.log("EditWineData.handle: ", editedWineData);
+        // console.log("EditWineData.handle: ", editedWineData);
         // try {
         //     const result = await editWine(token, userWine, editedWineData);
         //     if (result) {
@@ -42,7 +42,8 @@ function EditWineModal({ userWine, isModalOpen, setModalOpen }) {
             </button> */}
             <button
                 className="btn btn-outline-info w-100"
-                onClick={() => setModalOpen(true)}>
+                // onClick={() => setModalOpen(true)}
+            >
                 {translations && translations["wine.collection.open.edit"]}
             </button>
             {isModalOpen && (

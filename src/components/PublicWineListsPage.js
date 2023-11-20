@@ -8,12 +8,8 @@ function PublicWineListsPage({ setRoute, isLoggedIn }) {
     const { translations } = useLanguage();
     const [publicLists, setPublicLists] = useState([]);
 
-    useEffect(() => {
-        console.log("PublicLists.lists: ", publicLists);
-    }, [publicLists]);
-
     return (
-        <div>
+        <div className="container">
             <PublicWineListsFetcher setPublicLists={setPublicLists} />
             <div className="row ms-5 mt-1">
                 {/* <div className="ms-5 mt-3 d-flex flex-column "> */}
@@ -55,10 +51,6 @@ function PublicWineListsPage({ setRoute, isLoggedIn }) {
                                             {list[index].wineListName
                                                 ? list[index].wineListName
                                                 : "Wine List no." + (index + 1)}
-                                            {console.log(
-                                                ">>> LIST",
-                                                list[index].wineListName
-                                            )}
                                         </h5>
                                         <hr />
                                         <div className="card-wine-list-content">

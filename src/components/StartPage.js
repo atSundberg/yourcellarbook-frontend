@@ -5,10 +5,6 @@ import { useLanguage } from "../config/LanguageProvider";
 function StartPage() {
     const { translations } = useLanguage();
 
-    useEffect(() => {
-        console.log("FULL:", translations);
-    }, [translations]);
-
     return (
         <div className="">
             <div className="welcome-banner"></div>

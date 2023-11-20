@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import DrinkWineModal from "../modals/DrinkWineModal";
+import { useLanguage } from "../../config/LanguageProvider";
+import EditWineModal from "../modals/EditWineModal";
 
-function UserWineTableCard({ filteredWines, cardStates, toggleCardState }) {
+function UserWineTableCard({
+    filteredWines,
+    cardStates,
+    toggleCardState,
+    handleWineConsumed,
+}) {
+    const { translations } = useLanguage();
+    const [drinkWineModalOpen, setDrinkWineModalOpen] = useState(false);
+    const [editWineModalOpen, setEditWineModalOpen] = useState(false);
+
     return filteredWines.map((userWine, index) => (
         <div className="col-12 col-md-10 col-lg-8" key={index}>
             <div className="card px-0 mx-0 my-1 wine-table-card">
@@ -31,71 +43,138 @@ function UserWineTableCard({ filteredWines, cardStates, toggleCardState }) {
                             <div className="my-display text-center mb-2">
                                 {userWine.wine.name}
                             </div>
-                            <table className="table table-striped table-sm table-bordered">
-                                <tr>
-                                    <td>Producer</td>
-                                    <td className="text-end">
-                                        {userWine.wine.producer.name}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Vintage</td>
-                                    <td className="text-end">
-                                        {userWine.wine.vintage}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Region</td>
-                                    <td className="text-end">
-                                        {userWine.wine.region.name}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Country</td>
-                                    <td className="text-end">
-                                        {userWine.wine.region.country}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Grapes</td>
-                                    <td className="text-end">
-                                        {userWine.wine.grapes
-                                            .map((grape) => grape.name)
-                                            .join(", ")}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Type</td>
-                                    <td className="text-end text-capitalize">
-                                        {userWine.wine.category}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Quantity</td>
-                                    <td className="text-end">
-                                        {userWine.quantity}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Storing Location</td>
-                                    <td className="text-end">
-                                        {userWine.storing_location}
-                                    </td>
-                                </tr>
+
+                            <table className="table table-sm font-mono text-uppercase">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {translations &&
+                                                translations["wine.producer"]}
+                                        </td>
+                                        <td className="text-end">
+                                            {userWine.wine.producer.name}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {translations &&
+                                                translations["wine.vintage"]}
+                                        </td>
+                                        <td className="text-end">
+                                            {userWine.wine.vintage}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {translations &&
+                                                translations["wine.region"]}
+                                        </td>
+                                        <td className="text-end">
+                                            {userWine.wine.region.name}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {translations &&
+                                                translations["wine.country"]}
+                                        </td>
+                                        <td className="text-end">
+                                            {userWine.wine.region.country}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {translations &&
+                                                translations["wine.grapes"]}
+                                        </td>
+                                        <td className="text-end">
+                                            {userWine.wine.grapes
+                                                .map((grape) => grape.name)
+                                                .join(", ")}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {translations &&
+                                                translations["wine.type"]}
+                                        </td>
+                                        <td className="text-end text-capitalize">
+                                            {translations &&
+                                                translations[
+                                                    "wine.types." +
+                                                        userWine.wine.category.toLowerCase()
+                                                ]}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {translations &&
+                                                translations[
+                                                    "wine.collection.open.quantity"
+                                                ]}
+                                        </td>
+                                        <td className="text-end">
+                                            {userWine.quantity}
+                                        </td>
+                                    </tr>
+                                    {userWine.storing_location && (
+                                        <tr>
+                                            <td>
+                                                {translations &&
+                                                    translations[
+                                                        "wine.collection.open.storing"
+                                                    ]}
+                                            </td>
+                                            <td className="text-end">
+                                                {userWine.storing_location}
+                                            </td>
+                                        </tr>
+                                    )}
+                                    {userWine.information && (
+                                        <tr>
+                                            <td>
+                                                {translations &&
+                                                    translations[
+                                                        "wine.collection.open.information"
+                                                    ]}
+                                            </td>
+                                            <td className="text-end">
+                                                {userWine.information}
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
                             </table>
                         </div>
                         <div className="card-footer bg-transparent">
                             <div className="container">
                                 <div className="row">
                                     <div className="col">
-                                        <button className="btn btn-info  w-100">
-                                            Drink Wine
-                                        </button>
+                                        <DrinkWineModal
+                                            userWine={userWine}
+                                            isModalOpen={drinkWineModalOpen}
+                                            setModalOpen={setDrinkWineModalOpen}
+                                            handleWineConsumed={
+                                                handleWineConsumed
+                                            }
+                                        />
                                     </div>
                                     <div className="col">
-                                        <button className="btn btn-outline-info w-100">
-                                            Edit
-                                        </button>
+                                        <EditWineModal
+                                            userWine={userWine}
+                                            isModalOpen={editWineModalOpen}
+                                            setModalOpen={setEditWineModalOpen}
+                                        />
+                                        {/* <button
+                                            className="btn btn-outline-info w-100"
+                                            onClick={() =>
+                                                setEditWineModalOpen(true)
+                                            }>
+                                            {translations &&
+                                                translations[
+                                                    "wine.collection.open.edit"
+                                                ]}
+                                        </button> */}
                                     </div>
                                 </div>
                             </div>

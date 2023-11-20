@@ -10,10 +10,6 @@ function LanguageDropdown({ isDropdownOpen, setIsDropdownOpen }) {
     const { language } = useLanguage();
     const { switchLanguage } = useLanguage();
 
-    useEffect(() => {
-        console.log("LanguageDropdown.language: ", language);
-    }, [language]);
-
     return (
         <div>
             <div className="dropdown language-dropdown">

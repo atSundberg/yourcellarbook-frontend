@@ -10,10 +10,6 @@ function LoginModal({ onLogin, setShowModal, handleSwitchModal }) {
         password: "",
     });
 
-    useEffect(() => {
-        console.log(errorMessage);
-    }, [errorMessage]);
-
     const handleLogin = async (e) => {
         e.preventDefault();
 
