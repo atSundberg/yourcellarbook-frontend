@@ -9,7 +9,7 @@ export const drinkWine = async (token, userWine, drinkWineData) => {
             wineToDrink.quantity - drinkWineData.quantity <= 0
                 ? 0
                 : drinkWineData.quantity;
-        console.log("drinkWine: ", wineToDrink);
+        // console.log("drinkWine: ", wineToDrink);
 
         const response = await fetch(
             config.production.apiUrl + "/user/wine/drink",

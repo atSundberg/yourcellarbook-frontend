@@ -7,10 +7,6 @@ function SelectPublicWinesModal({ wines, isModalOpen, setModalOpen }) {
     const { token } = useAuth();
     const { translations } = useLanguage();
 
-    useEffect(() => {
-        console.log("SelectPublicWinesModal.wines: ", wines);
-    }, [wines]);
-
     // const handleDrinkWine = async (e) => {
     //     e.preventDefault();
     //     // console.log("Navbar.handleLogin: ", region);
@@ -26,7 +22,7 @@ function SelectPublicWinesModal({ wines, isModalOpen, setModalOpen }) {
     // };
 
     const handleChange = (e) => {
-        console.log("SelectPublicWinesModal.handleChange: ", e);
+        // console.log("SelectPublicWinesModal.handleChange: ", e);
         // const { name, value } = e.target;
         // setDrinkWineData({
         //     ...drinkWineData,

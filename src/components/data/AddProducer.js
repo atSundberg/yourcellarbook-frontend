@@ -19,9 +19,7 @@ function AddProducer({
                 name: producerName,
             };
 
-            // // console.log("producer:::", producer);
             const producerResponse = await fetch(
-                config.production.apiUrl + "/producers",
                 config.production.apiUrl + "/producers",
                 {
                     method: "POST",
@@ -36,7 +34,7 @@ function AddProducer({
 
             if (producerResponse.ok) {
                 const producerResult = await producerResponse.json();
-                // // console.log("producerResult: ", producerResult.result);
+                // console.log("producerResult: ", producerResult.result);
                 setAddedProducer(producerResult.result);
                 setProducers([...producers, producerResult.result]);
 

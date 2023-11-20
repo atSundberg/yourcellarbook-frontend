@@ -9,13 +9,13 @@ function LoginModal({ onLogin }) {
         password: "",
     });
 
-    useEffect(() => {
-        console.log(userInfo);
-    }, [userInfo]);
+    // useEffect(() => {
+    //     console.log(userInfo);
+    // }, [userInfo]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        console.log("Navbar.handleLogin: ", userInfo);
+        // console.log("Navbar.handleLogin: ", userInfo);
         try {
             const response = await fetch(config.production.apiUrl + "/token", {
                 method: "POST",

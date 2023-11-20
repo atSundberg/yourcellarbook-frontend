@@ -14,7 +14,7 @@ function WineHistory({ data, setData }) {
     useEffect(() => {
         // Function to filter wines based on the search input
         const filterWines = () => {
-            console.log("inside.HISTORY.filterWines.data: ", data);
+            // console.log("inside.HISTORY.filterWines.data: ", data);
             if (searchQuery === "") {
                 // If the search input is empty, show all wines
                 return data.filter((userWine) => {
@@ -51,16 +51,10 @@ function WineHistory({ data, setData }) {
     };
 
     const handleWineConsumed = (wineConsumed) => {
-        console.log("wineCollection.handleWineConsumed, ", wineConsumed);
+        // console.log("wineCollection.handleWineConsumed, ", wineConsumed);
         setData((prevData) => {
-            console.log(prevData);
             return prevData.map((wine) => {
-                console.log(
-                    "Equality check",
-                    wine.user_wine_id === wineConsumed.user_wine_id
-                );
                 if (wine.user_wine_id === wineConsumed.user_wine_id) {
-                    console.log("ARE EQUAL", wineConsumed);
                     return wineConsumed; // Replace the matched wine with wineConsumed
                 } else {
                     return wine; // Keep other wines unchanged

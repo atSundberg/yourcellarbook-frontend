@@ -8,7 +8,7 @@ function UserDataFetcher({ isLoggedIn, user, setData, setHistory }) {
         const userWines = [];
         const history = [];
         data.map((userWine) => {
-            console.log("UserDataFetcher.process-userWine: ", userWine);
+            // console.log("UserDataFetcher.process-userWine: ", userWine);
             if (!userWine.isFinished) {
                 userWines.push(userWine);
             } else {

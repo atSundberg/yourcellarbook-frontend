@@ -3,7 +3,7 @@ const config = {
         apiUrl: "http://localhost:8080",
     },
     production: {
-        apiUrl: "http://16.171.116.124:8080",
+        apiUrl: "https://api.yourcellarbook.com",
     },
 };
 
